@@ -125,6 +125,17 @@
             - add bgp network {{ devices[ansible_hostname].VLANS[1].vrrip }}
             - add bgp bestpath as-path multipath-relax
 
+- name: Configure Leaf Switch
+  hosts: leaf03:leaf04
+  become: yes
+  tasks:
+  - nclu:
+        commit: true
+        description: "Deploy interface configuration"
+        commands:
+            - add bond SERVER04 bridge access 400 
+
+
 - name: Configure Spines
   hosts: spine
   become: yes
